@@ -6,7 +6,7 @@ const char* ssid = "";
 const char* password = "";
 
 // MQTT
-const char* mqtt_server = "4";  // ex: 192.168.1.100
+const char* mqtt_server = "";  // ex: 192.168.1.100
 WiFiClient espClient;
 PubSubClient client(espClient);
 
@@ -32,12 +32,12 @@ void setup_wifi() {
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
-    // digitalWrite(WIFI_PIN, LOW);
+    digitalWrite(WIFI_PIN, LOW);
   }
 
   Serial.println("");
   Serial.println("Wi-Fi conectado");
-  // digitalWrite(WIFI_PIN, HIGH);
+  digitalWrite(WIFI_PIN, HIGH);
   Serial.println(WiFi.localIP());
 }
 
@@ -46,12 +46,10 @@ void reconnect() {
     Serial.print("Tentando conectar ao broker MQTT...");
     if (client.connect("ESP32_Oculos")) {
       Serial.println("Conectado ao MQTT");
-      // digitalWrite(MQTT_PIN, HIGH);
-      // Se quiser, inscreva-se em algum tópico aqui
-      // client.subscribe("algum/topico/cmd");
+      digitalWrite(MQTT_PIN, HIGH);
     } else {
       Serial.print("Falha, rc=");
-      // digitalWrite(MQTT_PIN, LOW);
+      digitalWrite(MQTT_PIN, LOW);
       Serial.print(client.state());
       delay(2000);
     }
